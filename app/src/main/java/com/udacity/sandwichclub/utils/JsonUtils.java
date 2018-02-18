@@ -23,6 +23,8 @@ public class JsonUtils {
         JSONArray alsoKnownAsJson = name.getJSONArray(SandwichJson.ALSO_KNOWN_AS);
         List<String> alsoKnownAs = parseStringList(alsoKnownAsJson);
         String placeOfOrigin = jsonObject.getString(SandwichJson.PLACE_OF_ORIGIN);
+        if (placeOfOrigin.equals(""))
+            placeOfOrigin = "Unknown";
         String description = jsonObject.getString(SandwichJson.DESCRIPTION);
         String image = jsonObject.getString(SandwichJson.IMAGE);
         JSONArray ingredientsJson = jsonObject.getJSONArray(SandwichJson.INGREDIENTS);
