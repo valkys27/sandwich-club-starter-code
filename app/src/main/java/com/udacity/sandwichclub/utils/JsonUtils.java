@@ -17,25 +17,25 @@ public class JsonUtils {
         }
     }
 
-    private static Sandwich parseSandwichJSONObject(JSONObject jsonObject) throws JSONException {
-        JSONObject name = jsonObject.getJSONObject(SandwichJson.NAME);
-        String mainName = name.getString(SandwichJson.MAIN_NAME);
-        JSONArray alsoKnownAsJson = name.getJSONArray(SandwichJson.ALSO_KNOWN_AS);
+    private static Sandwich parseSandwichJSONObject(JSONObject jsonObject) {
+        JSONObject name = jsonObject.optJSONObject(SandwichJson.NAME);
+        String mainName = name.optString(SandwichJson.MAIN_NAME);
+        JSONArray alsoKnownAsJson = name.optJSONArray(SandwichJson.ALSO_KNOWN_AS);
         List<String> alsoKnownAs = parseStringList(alsoKnownAsJson);
-        String placeOfOrigin = jsonObject.getString(SandwichJson.PLACE_OF_ORIGIN);
+        String placeOfOrigin = jsonObject.optString(SandwichJson.PLACE_OF_ORIGIN);
         if (placeOfOrigin.equals(""))
             placeOfOrigin = "Unknown";
-        String description = jsonObject.getString(SandwichJson.DESCRIPTION);
-        String image = jsonObject.getString(SandwichJson.IMAGE);
-        JSONArray ingredientsJson = jsonObject.getJSONArray(SandwichJson.INGREDIENTS);
+        String description = jsonObject.optString(SandwichJson.DESCRIPTION);
+        String image = jsonObject.optString(SandwichJson.IMAGE);
+        JSONArray ingredientsJson = jsonObject.optJSONArray(SandwichJson.INGREDIENTS);
         List<String> ingredients = parseStringList(ingredientsJson);
         return new Sandwich(mainName, alsoKnownAs, placeOfOrigin, description, image, ingredients);
     }
 
-    private static List<String> parseStringList(JSONArray jsonArray) throws JSONException {
+    private static List<String> parseStringList(JSONArray jsonArray) {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++)
-            list.add(jsonArray.getString(i));
+            list.add(jsonArray.optString(i));
         return list;
     }
 
